@@ -23,6 +23,16 @@ export const extract_json = (response: string) => {
   }
 }
 
+export const extract_bash = (response: string) => {
+  const payload = response.match(/```bash\s*([\s\S]*?)\s*```/s)
+  if (!payload) {
+    console.log('failed to parse string', response)
+    return null
+  }
+
+  return payload[1]
+}
+
 export const chat = async (messages: Message[], options: any = null) => {
   const payload = await fetch(`${url}/api/chat`, {
     method: 'POST',
